@@ -46,7 +46,6 @@ jobs:
           git push origin main
 
       - name: Mirror repositório externo
-        if: ${{ secrets.MIRROR_TOKEN != '' }}
         env:
           MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
           MIRROR_REPO: ${{ secrets.MIRROR_REPO }}

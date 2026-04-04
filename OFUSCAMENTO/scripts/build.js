@@ -9,40 +9,85 @@ const moduleOrder = require('../modulos/module-order.json');
 
 const srcDir = path.resolve(__dirname, '..', 'src');
 const distDir = path.resolve(__dirname, '..', 'dist');
+const entryPath = path.join(srcDir, 'main.lua');
 
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true });
 }
 
-// ── Empacotar módulos na ordem definida em module-order.json ───────────────
-let bundle = '';
-for (const mod of moduleOrder) {
-  const filePath = path.join(srcDir, mod);
-  if (!fs.existsSync(filePath)) {
-    console.error(`[Build] Módulo não encontrado: ${filePath}`);
+if (!fs.existsSync(entryPath)) {
+  console.error(`[Build] Entry principal nao encontrado: ${entryPath}`);
+  process.exit(1);
+}
+
+function toLuaLongString(input) {
+  let eqCount = 0;
+  while (true) {
+    const open = '[' + '='.repeat(eqCount) + '[';
+    const close = ']' + '='.repeat(eqCount) + ']';
+    if (!input.includes(close)) {
+      return `${open}${input}${close}`;
+    }
+    eqCount += 1;
+  }
+}
+
+// ── Leitura dos modulos na ordem oficial ───────────────────────────────────
+const modules = [];
+for (const relPath of moduleOrder) {
+  const fullPath = path.join(srcDir, relPath);
+  if (!fs.existsSync(fullPath)) {
+    console.error(`[Build] Modulo nao encontrado: ${fullPath}`);
     process.exit(1);
   }
-  const content = fs.readFileSync(filePath, 'utf8');
-  bundle += content + '\n';
-  console.log(`[Build] Incluído: ${mod} (${content.length} bytes)`);
+  const source = fs.readFileSync(fullPath, 'utf8');
+  modules.push({ relPath, source });
+  console.log(`[Build] Incluido: ${relPath} (${source.length} bytes)`);
 }
 
-// ── Patch online: substitui readfile() por game:HttpGet() no bundle ───────
-// Isso torna o script standalone quando carregado via HttpGet no executor.
-const modulesBaseUrl =
-  settings.modulesBaseUrl ||
-  `https://raw.githubusercontent.com/${settings.distOwner}/${settings.distRepo}/${settings.distBranch}/Modules/`;
+const moduleTable = [
+  'local __HOC_MODULES = {',
+  ...modules.map(({ relPath, source }) => `  [${JSON.stringify(relPath)}] = ${toLuaLongString(source)},`),
+  '}',
+  '',
+].join('\n');
 
-const readfileCall = 'return loadstring(readfile(BASE .. relPath))()';
-const httpGetCall  =
-  `return loadstring(game:HttpGet("${modulesBaseUrl}" .. relPath, true))()`;
+const embeddedLoadModule = [
+  '-- Loader de modulos embutidos em memoria (sem readfile)',
+  'local function loadModule(relPath)',
+  '    local source = __HOC_MODULES[relPath]',
+  '    if type(source) ~= "string" then',
+  '        warn("[HOC NOC] Modulo ausente no bundle: " .. tostring(relPath))',
+  '        return {}',
+  '    end',
+  '',
+  '    local chunk = loadstring(source)',
+  '    if type(chunk) ~= "function" then',
+  '        warn("[HOC NOC] Erro de compilacao no modulo: " .. tostring(relPath))',
+  '        return {}',
+  '    end',
+  '',
+  '    local ok, result = pcall(chunk)',
+  '    if not ok then',
+  '        warn("[HOC NOC] Erro ao executar modulo " .. tostring(relPath) .. ": " .. tostring(result))',
+  '        return {}',
+  '    end',
+  '    return result',
+  'end',
+].join('\n');
 
-if (bundle.includes(readfileCall)) {
-  bundle = bundle.replace(readfileCall, httpGetCall);
-  console.log('[Build] Patch HttpGet aplicado em loadModule.');
+let mainSource = fs.readFileSync(entryPath, 'utf8');
+const loadModulePattern = /local BASE\s*=\s*"HOC_NOC_Zoo\/"\s*[\r\n]+local function loadModule\(relPath\)[\s\S]*?end\s*[\r\n]+/;
+
+if (loadModulePattern.test(mainSource)) {
+  mainSource = mainSource.replace(loadModulePattern, `${embeddedLoadModule}\n\n`);
+  console.log('[Build] Patch de loadModule embutido aplicado.');
 } else {
-  console.warn('[Build] Aviso: padrão readfile não encontrado — bundle não foi alterado.');
+  console.error('[Build] Nao foi possivel localizar o bloco loadModule em main.lua.');
+  process.exit(1);
 }
+
+const bundle = `${moduleTable}${mainSource}`;
 
 // ── Bundle principal (pré-ofuscamento) ─────────────────────────────────────
 const bundlePath = path.join(distDir, `${settings.scriptName}.release.lua`);
