@@ -1,0 +1,7 @@
+# Dependências e artefatos locais — não commitar
+OFUSCAMENTO/node_modules/
+OFUSCAMENTO/dist/
+
+# Artefatos publicados na raiz (gerados pelo workflow) — commitar estes:
+# HOC_NOC.release.obf.lua  ← mantido no rastreamento
+# Loader.release.lua       ← mantido no rastreamento

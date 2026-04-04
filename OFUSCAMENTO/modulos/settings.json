@@ -1,0 +1,7 @@
+{
+  "scriptName": "HOC_NOC",
+  "distOwner": "KHAOS-OC97",
+  "distRepo": "BuildZoo_HOC_NOC_DIST",
+  "distBranch": "main",
+  "loaderUrl": "https://raw.githubusercontent.com/KHAOS-OC97/BuildZoo_HOC_NOC_DIST/main/HOC_NOC.release.obf.lua"
+}
