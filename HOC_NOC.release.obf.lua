@@ -313,9 +313,6 @@ local function loadModule(relPath)
     return result
 end
 
-    return result
-end
-
 local function safeInvoke(label, fn)
     if type(fn) ~= "function" then
         warn("[HOC NOC] Etapa ausente: " .. tostring(label))

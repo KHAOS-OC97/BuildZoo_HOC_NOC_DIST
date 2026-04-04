@@ -83,10 +83,16 @@ const embeddedLoadModule = [
 ].join('\n');
 
 let mainSource = fs.readFileSync(entryPath, 'utf8');
-const loadModulePattern = /local BASE\s*=\s*"HOC_NOC_Zoo\/"\s*[\r\n]+local function loadModule\(relPath\)[\s\S]*?end\s*[\r\n]+/;
+const startMarker = 'local BASE = "HOC_NOC_Zoo/"';
+const safeInvokeMarker = 'local function safeInvoke(label, fn)';
 
-if (loadModulePattern.test(mainSource)) {
-  mainSource = mainSource.replace(loadModulePattern, `${embeddedLoadModule}\n\n`);
+const startIdx = mainSource.indexOf(startMarker);
+const safeInvokeIdx = mainSource.indexOf(safeInvokeMarker);
+
+if (startIdx !== -1 && safeInvokeIdx !== -1 && safeInvokeIdx > startIdx) {
+  const before = mainSource.slice(0, startIdx);
+  const after = mainSource.slice(safeInvokeIdx);
+  mainSource = `${before}${embeddedLoadModule}\n\n${after}`;
   console.log('[Build] Patch de loadModule embutido aplicado.');
 } else {
   console.error('[Build] Nao foi possivel localizar o bloco loadModule em main.lua.');
