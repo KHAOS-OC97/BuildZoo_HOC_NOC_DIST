@@ -15,11 +15,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm --prefix OFUSCAMENTO install
@@ -37,10 +39,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git fetch origin main
+          git checkout -B main origin/main
           cp OFUSCAMENTO/dist/HOC_NOC.release.obf.lua HOC_NOC.release.obf.lua
           cp OFUSCAMENTO/dist/Loader.release.lua Loader.release.lua
-          git fetch origin main
-          git checkout main
           git add HOC_NOC.release.obf.lua Loader.release.lua
           git diff --staged --quiet || git commit -m "release: ${{ github.ref_name }}"
           git push origin main
