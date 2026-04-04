@@ -1,4 +1,4 @@
--- HOC_NOC Loader v1.0.18
+-- HOC_NOC Loader v1.0.19
 -- Gerado automaticamente. Nao edite manualmente.
 local __SRC = game:HttpGet("https://raw.githubusercontent.com/KHAOS-OC97/BuildZoo_HOC_NOC_DIST/main/HOC_NOC.release.obf.lua", true)
 local __L = loadstring or load
