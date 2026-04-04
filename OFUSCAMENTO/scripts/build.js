@@ -61,9 +61,15 @@ const embeddedLoadModule = [
   '        return {}',
   '    end',
   '',
-  '    local chunk = loadstring(source)',
+  '    local _L = loadstring or load',
+  '    if type(_L) ~= "function" then',
+  '        warn("[HOC NOC] Executor sem loadstring/load para modulo: " .. tostring(relPath))',
+  '        return {}',
+  '    end',
+  '',
+  '    local chunk, compileErr = _L(source)',
   '    if type(chunk) ~= "function" then',
-  '        warn("[HOC NOC] Erro de compilacao no modulo: " .. tostring(relPath))',
+  '        warn("[HOC NOC] Erro de compilacao no modulo " .. tostring(relPath) .. ": " .. tostring(compileErr))',
   '        return {}',
   '    end',
   '',
@@ -99,7 +105,12 @@ const version = process.env.GITHUB_REF_NAME || 'local';
 const loader =
   `-- ${settings.scriptName} Loader ${version}\n` +
   `-- Gerado automaticamente. Nao edite manualmente.\n` +
-  `loadstring(game:HttpGet("${settings.loaderUrl}", true))()\n`;
+  `local __SRC = game:HttpGet("${settings.loaderUrl}", true)\n` +
+  `local __L = loadstring or load\n` +
+  `assert(type(__L) == "function", "[HOC NOC] Executor sem loadstring/load")\n` +
+  `local __F, __E = __L(__SRC)\n` +
+  `assert(type(__F) == "function", "[HOC NOC] Compile error: " .. tostring(__E))\n` +
+  `__F()\n`;
 
 const loaderPath = path.join(distDir, 'Loader.release.lua');
 fs.writeFileSync(loaderPath, loader);
