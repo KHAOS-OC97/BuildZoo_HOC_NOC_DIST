@@ -26,25 +26,32 @@ jobs:
 
       - name: Build
         run: npm --prefix OFUSCAMENTO run build
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
 
       - name: Obfuscate
         run: npm --prefix OFUSCAMENTO run obfuscate
 
-      - name: Mirror
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MIRROR_REPO: ${{ secrets.MIRROR_REPO }}
-          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
-          MIRROR_BRANCH: ${{ secrets.MIRROR_BRANCH }}
+      - name: Publicar assets na branch main
         run: |
-          cp OFUSCAMENTO/dist/HOC_NOC.release.obf.lua HOC_NOC.release.obf.lua
-          cp OFUSCAMENTO/dist/Loader.release.lua Loader.release.lua
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          cp OFUSCAMENTO/dist/HOC_NOC.release.obf.lua HOC_NOC.release.obf.lua
+          cp OFUSCAMENTO/dist/Loader.release.lua Loader.release.lua
+          git fetch origin main
+          git checkout main
           git add HOC_NOC.release.obf.lua Loader.release.lua
           git diff --staged --quiet || git commit -m "release: ${{ github.ref_name }}"
-          git push origin HEAD:main
-          npm --prefix OFUSCAMENTO run mirror
+          git push origin main
+
+      - name: Mirror repositório externo
+        if: ${{ secrets.MIRROR_TOKEN != '' }}
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+          MIRROR_REPO: ${{ secrets.MIRROR_REPO }}
+          MIRROR_BRANCH: ${{ secrets.MIRROR_BRANCH }}
+        run: npm --prefix OFUSCAMENTO run mirror
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -53,3 +60,4 @@ jobs:
           files: |
             OFUSCAMENTO/dist/HOC_NOC.release.obf.lua
             OFUSCAMENTO/dist/Loader.release.lua
+          fail_on_unmatched_files: false
