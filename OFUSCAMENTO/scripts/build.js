@@ -27,6 +27,23 @@ for (const mod of moduleOrder) {
   console.log(`[Build] Incluído: ${mod} (${content.length} bytes)`);
 }
 
+// ── Patch online: substitui readfile() por game:HttpGet() no bundle ───────
+// Isso torna o script standalone quando carregado via HttpGet no executor.
+const modulesBaseUrl =
+  settings.modulesBaseUrl ||
+  `https://raw.githubusercontent.com/${settings.distOwner}/${settings.distRepo}/${settings.distBranch}/Modules/`;
+
+const readfileCall = 'return loadstring(readfile(BASE .. relPath))()';
+const httpGetCall  =
+  `return loadstring(game:HttpGet("${modulesBaseUrl}" .. relPath, true))()`;
+
+if (bundle.includes(readfileCall)) {
+  bundle = bundle.replace(readfileCall, httpGetCall);
+  console.log('[Build] Patch HttpGet aplicado em loadModule.');
+} else {
+  console.warn('[Build] Aviso: padrão readfile não encontrado — bundle não foi alterado.');
+}
+
 // ── Bundle principal (pré-ofuscamento) ─────────────────────────────────────
 const bundlePath = path.join(distDir, `${settings.scriptName}.release.lua`);
 fs.writeFileSync(bundlePath, bundle);

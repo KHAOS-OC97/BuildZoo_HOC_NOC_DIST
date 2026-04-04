@@ -3,7 +3,6 @@
 
 const fs = require('fs');
 const path = require('path');
-
 const settings = require('../modulos/settings.json');
 
 const distDir = path.resolve(__dirname, '..', 'dist');
@@ -15,27 +14,10 @@ if (!fs.existsSync(inputPath)) {
   process.exit(1);
 }
 
-let source = fs.readFileSync(inputPath, 'utf8');
+const source = fs.readFileSync(inputPath, 'utf8');
+const encoded = Buffer.from(source).toString('base64');
 
-// ── Minificação via luamin (fallback para strip básico) ───────────────────
-let minified = source;
-try {
-  const luamin = require('luamin');
-  minified = luamin.minify(source);
-  console.log('[Obfuscate] luamin minify aplicado.');
-} catch (e) {
-  console.warn('[Obfuscate] luamin falhou, usando minificação básica:', e.message);
-  minified = source
-    .replace(/--\[\[[\s\S]*?\]\]/g, '')  // remove comentários de bloco
-    .replace(/--[^\n]*/g, '')             // remove comentários de linha
-    .replace(/\n\s*\n/g, '\n')
-    .trim();
-}
-
-// ── Wrapping em loadstring + base64 ──────────────────────────────────────
-const encoded = Buffer.from(minified).toString('base64');
-
-// Decoder Lua (single-line) + executor
+// ── Decoder Lua puro (sem dependência externa) + executor ────────────────
 const obfuscated =
   `local _B='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';` +
   `local function _D(s)` +
