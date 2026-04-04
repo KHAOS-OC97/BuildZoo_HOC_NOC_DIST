@@ -1,1 +1,407 @@
-local _B='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';local function _D(s)s=s:gsub('[^'.._B..'=]','');return(s:gsub('.',function(c)if c=='='then return''end;local r,f='',_B:find(c,1,true)-1;for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and'1'or'0')end;return r;end):gsub('%d%d%d%d%d%d%d%d',function(x)local n=0;for i=1,8 do n=n+(x:sub(i,i)=='1'and 2^(8-i)or 0)end;return string.char(n)end))end;local __L=loadstring or load;if type(__L)~='function' then error('No Lua loader available') end;__L(_D("bG9jYWwgX19IT0NfTU9EVUxFUyA9IHsKICBbIk1vZHVsZXMvQ29uZmlnLmx1YSJdID0gW1tsb2NhbCBNID0ge30KCk0uQU5USV9BRktfSU5URVJWQUwgPSAzMAoKcmV0dXJuIE0KXV0sCiAgWyJNb2R1bGVzL1N0YXRlLmx1YSJdID0gW1tsb2NhbCBNID0ge30KCk0uU3RvcmVkID0gewogICAgU2NyZWVuR3VpID0gbmlsLAp9CgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvU2VydmljZXMubHVhIl0gPSBbW2xvY2FsIFBsYXllcnMgPSBnYW1lOkdldFNlcnZpY2UoIlBsYXllcnMiKQoKbG9jYWwgTSA9IHsKICAgIFBsYXllcnMgPSBQbGF5ZXJzLAogICAgTG9jYWxQbGF5ZXIgPSBQbGF5ZXJzLkxvY2FsUGxheWVyLAp9CgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvQXV0b0xpa2UubHVhIl0gPSBbW2xvY2FsIE0gPSB7fQoKZnVuY3Rpb24gTS5Jbml0KF9jdHgpCiAgICAtLSBQbGFjZWhvbGRlciBtb2R1bGUKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvQW50aUFGSy5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpmdW5jdGlvbiBNLlBpbmcoKQogICAgLS0gTGlnaHR3ZWlnaHQgYW50aS1pZGxlIHB1bHNlIHBsYWNlaG9sZGVyLgplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9FU1AubHVhIl0gPSBbW2xvY2FsIE0gPSB7fQoKZnVuY3Rpb24gTS5Jbml0KF9jdHgpCmVuZAoKcmV0dXJuIE0KXV0sCiAgWyJNb2R1bGVzL01vdmVtZW50Lmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uSW5pdChfY3R4KQplbmQKCmZ1bmN0aW9uIE0uQXBwbHlUb0NoYXJhY3RlcihfY2hhcikKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvRmx5Lmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uSW5pdChfY3R4KQplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9BdXRvRmlzaC5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvQXV0b0J1eS5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvQmlnUGV0RmVlZC5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvU2VydmVySG9wLmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uSW5pdChfY3R4KQplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9UZWxlcG9ydC5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvRW1vdGVzLmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uSW5pdChfY3R4KQplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9Db2xsZWN0Q29pbi5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkluaXQoX2N0eCkKZW5kCgpyZXR1cm4gTQpdXSwKICBbIk1vZHVsZXMvR1VJL1RvZ2dsZXMubHVhIl0gPSBbW2xvY2FsIE0gPSB7fQoKZnVuY3Rpb24gTS5CaW5kKF9jdHgpCmVuZAoKcmV0dXJuIE0KXV0sCiAgWyJNb2R1bGVzL0dVSS9CdXR0b25zLmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uQmluZChfY3R4KQplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9HVUkvRnJ1aXRNZW51Lmx1YSJdID0gW1tsb2NhbCBNID0ge30KCmZ1bmN0aW9uIE0uQmluZChfY3R4KQplbmQKCnJldHVybiBNCl1dLAogIFsiTW9kdWxlcy9HVUkvQ29yZS5sdWEiXSA9IFtbbG9jYWwgTSA9IHt9CgpmdW5jdGlvbiBNLkJ1aWxkKGN0eCkKICAgIGxvY2FsIHBsYXllciA9IGN0eC5TZXJ2aWNlcyBhbmQgY3R4LlNlcnZpY2VzLkxvY2FsUGxheWVyCiAgICBpZiBub3QgcGxheWVyIHRoZW4KICAgICAgICByZXR1cm4KICAgIGVuZAoKICAgIGxvY2FsIGd1aSA9IEluc3RhbmNlLm5ldygiU2NyZWVuR3VpIikKICAgIGd1aS5OYW1lID0gIkhPQ19OT0NfR1VJIgogICAgZ3VpLlJlc2V0T25TcGF3biA9IGZhbHNlCgogICAgbG9jYWwgb2sgPSBwY2FsbChmdW5jdGlvbigpCiAgICAgICAgZ3VpLlBhcmVudCA9IGdhbWU6R2V0U2VydmljZSgiQ29yZUd1aSIpCiAgICBlbmQpCgogICAgaWYgbm90IG9rIHRoZW4KICAgICAgICBsb2NhbCBwbGF5ZXJHdWkgPSBwbGF5ZXI6RmluZEZpcnN0Q2hpbGRPZkNsYXNzKCJQbGF5ZXJHdWkiKSBvciBwbGF5ZXI6V2FpdEZvckNoaWxkKCJQbGF5ZXJHdWkiKQogICAgICAgIGd1aS5QYXJlbnQgPSBwbGF5ZXJHdWkKICAgIGVuZAoKICAgIGxvY2FsIGZyYW1lID0gSW5zdGFuY2UubmV3KCJGcmFtZSIpCiAgICBmcmFtZS5TaXplID0gVURpbTIubmV3KDAsIDI2MCwgMCwgNjQpCiAgICBmcmFtZS5Qb3NpdGlvbiA9IFVEaW0yLm5ldygwLCAyMCwgMCwgODApCiAgICBmcmFtZS5CYWNrZ3JvdW5kQ29sb3IzID0gQ29sb3IzLmZyb21SR0IoMjAsIDIwLCAyMCkKICAgIGZyYW1lLkJvcmRlclNpemVQaXhlbCA9IDAKICAgIGZyYW1lLlBhcmVudCA9IGd1aQoKICAgIGxvY2FsIGxhYmVsID0gSW5zdGFuY2UubmV3KCJUZXh0TGFiZWwiKQogICAgbGFiZWwuU2l6ZSA9IFVEaW0yLm5ldygxLCAtMTIsIDEsIC0xMikKICAgIGxhYmVsLlBvc2l0aW9uID0gVURpbTIubmV3KDAsIDYsIDAsIDYpCiAgICBsYWJlbC5CYWNrZ3JvdW5kVHJhbnNwYXJlbmN5ID0gMQogICAgbGFiZWwuRm9udCA9IEVudW0uRm9udC5Hb3RoYW1Cb2xkCiAgICBsYWJlbC5UZXh0U2l6ZSA9IDE0CiAgICBsYWJlbC5UZXh0Q29sb3IzID0gQ29sb3IzLmZyb21SR0IoMjM1LCAyMzUsIDIzNSkKICAgIGxhYmVsLlRleHQgPSAiSE9DIE5PQyBCdWlsZFpvbyBMb2FkZWQiCiAgICBsYWJlbC5QYXJlbnQgPSBmcmFtZQoKICAgIGlmIGN0eC5TdGF0ZSBhbmQgY3R4LlN0YXRlLlN0b3JlZCB0aGVuCiAgICAgICAgY3R4LlN0YXRlLlN0b3JlZC5TY3JlZW5HdWkgPSBndWkKICAgIGVuZAplbmQKCnJldHVybiBNCl1dLAp9Ci0tW1sKICAgIEhPQyBOT0MgWm9vIOKAlCB2MS4wLjMgfCBNb2R1bGFyIEVkaXRpb24KICAgIE1haW4ubHVhIOKAlCBQb250byBkZSBlbnRyYWRhLiBDYXJyZWdhIHRvZG9zIG9zIG3Ds2R1bG9zLCBpbmljaWFsaXphIGFzCiAgICAgICAgICAgICAgIGZlYXR1cmVzLCBjb25zdHLDs2kgYSBHVUkgZSBtYW50w6ltIG8gbG9vcCBtb25pdG9yLgoKICAgIOKUgCBSZXF1aXNpdG9zIGRlIGV4ZWN1dG9yIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgAogICAg4oCiIFNjcmlwdCBkaXN0cmlidWlkbyBjb21vIGJ1bmRsZSBzdGFuZGFsb25lIChtb2R1bG9zIGVtYnV0aWRvcyBlbSBtZW1vcmlhKS4KICAgIOKAoiBFeGVjdWNhbyByZWNvbWVuZGFkYSB2aWEgSHR0cEdldCArIGxvYWRzdHJpbmcuCgogICAg4pSAIFBlcnNpc3TDqm5jaWEgYXDDs3MgdGVsZXBvcnRlIGNyb3NzLXBsYWNlIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgAogICAgVXNlIHF1ZXVlX29uX3RlbGVwb3J0IGRvIGV4ZWN1dG9yIHBhcmEgcmVjYXJyZWdhciBhcG9zIHRlbGVwb3J0ZXM6CiAgICAgICAgcXVldWVfb25fdGVsZXBvcnQoW1tsb2Fkc3RyaW5nKGdhbWU6SHR0cEdldCgiU1VBX1VSTF9SQVciKSkoKV1dKQpdXQoKLS0g4pSA4pSAIFdoaXRlbGlzdCBTZWN1cml0eSBDaGVjayDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKZG8KICAgIGxvY2FsIEFMTE9XRURfVVNFUlMgPSB7IFsia2NoYW9zOTciXSA9IHRydWUsIFsiY2toYW9zNzkiXSA9IHRydWUgfQogICAgLS0gVXNlcklkcyBvZmljaWFpcyBhdXRvcml6YWRvcyAoZHVwbGEgdmFsaWRhY2FvOiBub21lICsgaWQpCiAgICBsb2NhbCBBTExPV0VEX1VTRVJfSURTID0gewogICAgICAgIFsyMjQyMDYwOTA4XSA9IHRydWUsCiAgICAgICAgWzUwMTk4NTYzODhdID0gdHJ1ZSwKICAgIH0KICAgIGxvY2FsIFBsYXllcnMgPSBnYW1lOkdldFNlcnZpY2UoIlBsYXllcnMiKQogICAgbG9jYWwgcGxheWVyICA9IFBsYXllcnMuTG9jYWxQbGF5ZXIKICAgIGxvY2FsIG5hbWUgICAgPSBwbGF5ZXIgYW5kIHBsYXllci5OYW1lIG9yICIiCiAgICBsb2NhbCB1c2VySWQgID0gcGxheWVyIGFuZCBwbGF5ZXIuVXNlcklkIG9yIDAKICAgIGxvY2FsIG5vcm1hbGl6ZWROYW1lID0gc3RyaW5nLmxvd2VyKHRvc3RyaW5nKG5hbWUpKQoKICAgIGxvY2FsIGZ1bmN0aW9uIHNob3dBY2Nlc3NOb3RpZmljYXRpb24oZ3JhbnRlZCkKICAgICAgICBsb2NhbCBzZyA9IEluc3RhbmNlLm5ldygiU2NyZWVuR3VpIikKICAgICAgICBzZy5OYW1lID0gIkhPQ19OT0NfQWNjZXNzIgogICAgICAgIHNnLlJlc2V0T25TcGF3biA9IGZhbHNlCiAgICAgICAgc2cuWkluZGV4QmVoYXZpb3IgPSBFbnVtLlpJbmRleEJlaGF2aW9yLlNpYmxpbmcKICAgICAgICBwY2FsbChmdW5jdGlvbigpIHNnLlBhcmVudCA9IGdhbWU6R2V0U2VydmljZSgiQ29yZUd1aSIpIGVuZCkKICAgICAgICBpZiBub3Qgc2cuUGFyZW50IHRoZW4gc2cuUGFyZW50ID0gcGxheWVyOldhaXRGb3JDaGlsZCgiUGxheWVyR3VpIikgZW5kCgogICAgICAgIGxvY2FsIGZyYW1lID0gSW5zdGFuY2UubmV3KCJGcmFtZSIsIHNnKQogICAgICAgIGZyYW1lLkFuY2hvclBvaW50ID0gVmVjdG9yMi5uZXcoMC41LCAwKQogICAgICAgIGZyYW1lLlBvc2l0aW9uID0gVURpbTIubmV3KDAuNSwgMCwgMC4wNSwgMCkKICAgICAgICBmcmFtZS5TaXplID0gVURpbTIubmV3KDAsIDQ4MCwgMCwgNjApCiAgICAgICAgZnJhbWUuQmFja2dyb3VuZENvbG9yMyA9IGdyYW50ZWQgYW5kIENvbG9yMy5mcm9tUkdCKDMwLCAzMCwgMzApIG9yIENvbG9yMy5mcm9tUkdCKDQwLCAxMCwgMTApCiAgICAgICAgZnJhbWUuQmFja2dyb3VuZFRyYW5zcGFyZW5jeSA9IDAuMTUKICAgICAgICBmcmFtZS5Cb3JkZXJTaXplUGl4ZWwgPSAwCiAgICAgICAgSW5zdGFuY2UubmV3KCJVSUNvcm5lciIsIGZyYW1lKS5Db3JuZXJSYWRpdXMgPSBVRGltLm5ldygwLCAxMCkKCiAgICAgICAgbG9jYWwgc3Ryb2tlID0gSW5zdGFuY2UubmV3KCJVSVN0cm9rZSIsIGZyYW1lKQogICAgICAgIHN0cm9rZS5Db2xvciA9IENvbG9yMy5mcm9tUkdCKDI1NSwgMCwgMCkKICAgICAgICBzdHJva2UuVGhpY2tuZXNzID0gMgoKICAgICAgICAtLSBSR0IgY3ljbGluZyBib3JkZXIKICAgICAgICBsb2NhbCByZ2JSdW5uaW5nID0gdHJ1ZQogICAgICAgIHRhc2suc3Bhd24oZnVuY3Rpb24oKQogICAgICAgICAgICBsb2NhbCB0ID0gMAogICAgICAgICAgICB3aGlsZSByZ2JSdW5uaW5nIGRvCiAgICAgICAgICAgICAgICB0ID0gdCArIHRhc2sud2FpdCgpCiAgICAgICAgICAgICAgICBsb2NhbCByID0gbWF0aC5mbG9vcihtYXRoLnNpbih0ICogMikgKiAxMjcgKyAxMjgpCiAgICAgICAgICAgICAgICBsb2NhbCBnID0gbWF0aC5mbG9vcihtYXRoLnNpbih0ICogMiArIDIuMDk0KSAqIDEyNyArIDEyOCkKICAgICAgICAgICAgICAgIGxvY2FsIGIgPSBtYXRoLmZsb29yKG1hdGguc2luKHQgKiAyICsgNC4xODkpICogMTI3ICsgMTI4KQogICAgICAgICAgICAgICAgc3Ryb2tlLkNvbG9yID0gQ29sb3IzLmZyb21SR0IociwgZywgYikKICAgICAgICAgICAgZW5kCiAgICAgICAgZW5kKQoKICAgICAgICBsb2NhbCBsYmwgPSBJbnN0YW5jZS5uZXcoIlRleHRMYWJlbCIsIGZyYW1lKQogICAgICAgIGxibC5TaXplID0gVURpbTIubmV3KDEsIC00MCwgMSwgMCkKICAgICAgICBsYmwuUG9zaXRpb24gPSBVRGltMi5uZXcoMCwgMjAsIDAsIDApCiAgICAgICAgbGJsLkJhY2tncm91bmRUcmFuc3BhcmVuY3kgPSAxCiAgICAgICAgbGJsLkZvbnQgPSBFbnVtLkZvbnQuR290aGFtQm9sZAogICAgICAgIGxibC5UZXh0U2l6ZSA9IDE4CiAgICAgICAgbGJsLlRleHRDb2xvcjMgPSBncmFudGVkIGFuZCBDb2xvcjMuZnJvbVJHQigwLCAyMjAsIDkwKSBvciBDb2xvcjMuZnJvbVJHQigyNTUsIDYwLCA2MCkKICAgICAgICBsYmwuVGV4dCA9IGdyYW50ZWQKICAgICAgICAgICAgYW5kICgiW0hPQyBOT0NdIEFjY2VzcyBHUkFOVEVEIOKAlCBXZWxjb21lLCAiIC4uIG5hbWUpCiAgICAgICAgICAgIG9yICAoIltIT0MgTk9DXSBBY2Nlc3MgREVOSUVEIOKAlCBVbmF1dGhvcml6ZWQgdXNlcjogIiAuLiBuYW1lKQogICAgICAgIGxibC5UZXh0WEFsaWdubWVudCA9IEVudW0uVGV4dFhBbGlnbm1lbnQuQ2VudGVyCgogICAgICAgIHRhc2suZGVsYXkoZ3JhbnRlZCBhbmQgNCBvciA2LCBmdW5jdGlvbigpCiAgICAgICAgICAgIHJnYlJ1bm5pbmcgPSBmYWxzZQogICAgICAgICAgICBwY2FsbChmdW5jdGlvbigpCiAgICAgICAgICAgICAgICBsb2NhbCB0dyA9IGdhbWU6R2V0U2VydmljZSgiVHdlZW5TZXJ2aWNlIikKICAgICAgICAgICAgICAgIGxvY2FsIHRpID0gVHdlZW5JbmZvLm5ldygxLCBFbnVtLkVhc2luZ1N0eWxlLlF1YWQsIEVudW0uRWFzaW5nRGlyZWN0aW9uLk91dCkKICAgICAgICAgICAgICAgIHR3OkNyZWF0ZShmcmFtZSwgdGksIHtCYWNrZ3JvdW5kVHJhbnNwYXJlbmN5ID0gMX0pOlBsYXkoKQogICAgICAgICAgICAgICAgdHc6Q3JlYXRlKGxibCwgICB0aSwge1RleHRUcmFuc3BhcmVuY3kgPSAxfSk6UGxheSgpCiAgICAgICAgICAgICAgICB0dzpDcmVhdGUoc3Ryb2tlLCB0aSwge1RyYW5zcGFyZW5jeSA9IDF9KTpQbGF5KCkKICAgICAgICAgICAgICAgIHRhc2sud2FpdCgxLjEpCiAgICAgICAgICAgICAgICBzZzpEZXN0cm95KCkKICAgICAgICAgICAgZW5kKQogICAgICAgIGVuZCkKICAgIGVuZAoKICAgIGxvY2FsIGhhc05hbWVSdWxlcyA9IG5leHQoQUxMT1dFRF9VU0VSUykgfj0gbmlsCiAgICBsb2NhbCBoYXNJZFJ1bGVzID0gbmV4dChBTExPV0VEX1VTRVJfSURTKSB+PSBuaWwKICAgIGxvY2FsIG5hbWVBbGxvd2VkID0gKG5vdCBoYXNOYW1lUnVsZXMpIG9yIChBTExPV0VEX1VTRVJTW25vcm1hbGl6ZWROYW1lXSA9PSB0cnVlKQogICAgbG9jYWwgaWRBbGxvd2VkID0gKG5vdCBoYXNJZFJ1bGVzKSBvciAoQUxMT1dFRF9VU0VSX0lEU1t1c2VySWRdID09IHRydWUpCgogICAgaWYgbm90IChuYW1lQWxsb3dlZCBhbmQgaWRBbGxvd2VkKSB0aGVuCiAgICAgICAgc2hvd0FjY2Vzc05vdGlmaWNhdGlvbihmYWxzZSkKICAgICAgICByZXR1cm4KICAgIGVuZAoKICAgIHNob3dBY2Nlc3NOb3RpZmljYXRpb24odHJ1ZSkKZW5kCgotLSDilIDilIAgTG9hZGVyIGRlIG3Ds2R1bG9zIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgAotLSBMb2FkZXIgZGUgbW9kdWxvcyBlbWJ1dGlkb3MgZW0gbWVtb3JpYSAoc2VtIHJlYWRmaWxlKQpsb2NhbCBmdW5jdGlvbiBsb2FkTW9kdWxlKHJlbFBhdGgpCiAgICBsb2NhbCBzb3VyY2UgPSBfX0hPQ19NT0RVTEVTW3JlbFBhdGhdCiAgICBpZiB0eXBlKHNvdXJjZSkgfj0gInN0cmluZyIgdGhlbgogICAgICAgIHdhcm4oIltIT0MgTk9DXSBNb2R1bG8gYXVzZW50ZSBubyBidW5kbGU6ICIgLi4gdG9zdHJpbmcocmVsUGF0aCkpCiAgICAgICAgcmV0dXJuIHt9CiAgICBlbmQKCiAgICBsb2NhbCBfTCA9IGxvYWRzdHJpbmcgb3IgbG9hZAogICAgaWYgdHlwZShfTCkgfj0gImZ1bmN0aW9uIiB0aGVuCiAgICAgICAgd2FybigiW0hPQyBOT0NdIEV4ZWN1dG9yIHNlbSBsb2Fkc3RyaW5nL2xvYWQgcGFyYSBtb2R1bG86ICIgLi4gdG9zdHJpbmcocmVsUGF0aCkpCiAgICAgICAgcmV0dXJuIHt9CiAgICBlbmQKCiAgICBsb2NhbCBjaHVuaywgY29tcGlsZUVyciA9IF9MKHNvdXJjZSkKICAgIGlmIHR5cGUoY2h1bmspIH49ICJmdW5jdGlvbiIgdGhlbgogICAgICAgIHdhcm4oIltIT0MgTk9DXSBFcnJvIGRlIGNvbXBpbGFjYW8gbm8gbW9kdWxvICIgLi4gdG9zdHJpbmcocmVsUGF0aCkgLi4gIjogIiAuLiB0b3N0cmluZyhjb21waWxlRXJyKSkKICAgICAgICByZXR1cm4ge30KICAgIGVuZAoKICAgIGxvY2FsIG9rLCByZXN1bHQgPSBwY2FsbChjaHVuaykKICAgIGlmIG5vdCBvayB0aGVuCiAgICAgICAgd2FybigiW0hPQyBOT0NdIEVycm8gYW8gZXhlY3V0YXIgbW9kdWxvICIgLi4gdG9zdHJpbmcocmVsUGF0aCkgLi4gIjogIiAuLiB0b3N0cmluZyhyZXN1bHQpKQogICAgICAgIHJldHVybiB7fQogICAgZW5kCiAgICByZXR1cm4gcmVzdWx0CmVuZAoKICAgIHJldHVybiByZXN1bHQKZW5kCgpsb2NhbCBmdW5jdGlvbiBzYWZlSW52b2tlKGxhYmVsLCBmbikKICAgIGlmIHR5cGUoZm4pIH49ICJmdW5jdGlvbiIgdGhlbgogICAgICAgIHdhcm4oIltIT0MgTk9DXSBFdGFwYSBhdXNlbnRlOiAiIC4uIHRvc3RyaW5nKGxhYmVsKSkKICAgICAgICByZXR1cm4gZmFsc2UKICAgIGVuZAoKICAgIGxvY2FsIG9rLCBlcnIgPSBwY2FsbChmbikKICAgIGlmIG5vdCBvayB0aGVuCiAgICAgICAgd2FybigiW0hPQyBOT0NdIEZhbGhhIGVtICIgLi4gdG9zdHJpbmcobGFiZWwpIC4uICI6ICIgLi4gdG9zdHJpbmcoZXJyKSkKICAgICAgICByZXR1cm4gZmFsc2UKICAgIGVuZAoKICAgIHJldHVybiB0cnVlCmVuZAoKLS0g4pSA4pSAIE3Ds2R1bG9zIGJhc2UgKG9yZGVtIGltcG9ydGEpIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgApsb2NhbCBjdHggPSB7fQpjdHguQ29uZmlnICAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL0NvbmZpZy5sdWEiKQpjdHguU3RhdGUgICAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL1N0YXRlLmx1YSIpCmN0eC5TZXJ2aWNlcyA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvU2VydmljZXMubHVhIikKCi0tIOKUgOKUgCBNw7NkdWxvcyBkZSBmZWF0dXJlIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgApjdHguQW50aUFGSyAgID0gbG9hZE1vZHVsZSgiTW9kdWxlcy9BbnRpQUZLLmx1YSIpCmN0eC5FU1AgICAgICAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL0VTUC5sdWEiKQpjdHguTW92ZW1lbnQgID0gbG9hZE1vZHVsZSgiTW9kdWxlcy9Nb3ZlbWVudC5sdWEiKQpjdHguRmx5ICAgICAgID0gbG9hZE1vZHVsZSgiTW9kdWxlcy9GbHkubHVhIikKY3R4LkF1dG9GaXNoICA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvQXV0b0Zpc2gubHVhIikKY3R4LkF1dG9CdXkgICA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvQXV0b0J1eS5sdWEiKQpjdHguQmlnUGV0RmVlZCA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvQmlnUGV0RmVlZC5sdWEiKQpjdHguU2VydmVySG9wID0gbG9hZE1vZHVsZSgiTW9kdWxlcy9TZXJ2ZXJIb3AubHVhIikKY3R4LlRlbGVwb3J0ICA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvVGVsZXBvcnQubHVhIikKY3R4LkVtb3RlcyAgICA9IGxvYWRNb2R1bGUoIk1vZHVsZXMvRW1vdGVzLmx1YSIpCgotLSDilIDilIAgTcOzZHVsb3MgZGUgR1VJIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgApjdHguR1VJID0gewogICAgVG9nZ2xlcyAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL0dVSS9Ub2dnbGVzLmx1YSIpLAogICAgQnV0dG9ucyAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL0dVSS9CdXR0b25zLmx1YSIpLAogICAgRnJ1aXRNZW51ID0gbG9hZE1vZHVsZSgiTW9kdWxlcy9HVUkvRnJ1aXRNZW51Lmx1YSIpLAogICAgQ29yZSAgICAgPSBsb2FkTW9kdWxlKCJNb2R1bGVzL0dVSS9Db3JlLmx1YSIpLAp9CgotLSDilIDilIAgSW5pY2lhbGl6YcOnw6NvIGRhcyBmZWF0dXJlcyAoY29uZWN0YSBldmVudG9zLCBpbmljaWEgbG9vcHMpIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgApzYWZlSW52b2tlKCJBbnRpQUZLLkluaXQiLCBmdW5jdGlvbigpIGN0eC5BbnRpQUZLLkluaXQoY3R4KSBlbmQpCnNhZmVJbnZva2UoIkVTUC5Jbml0IiwgZnVuY3Rpb24oKSBjdHguRVNQLkluaXQoY3R4KSBlbmQpCnNhZmVJbnZva2UoIk1vdmVtZW50LkluaXQiLCBmdW5jdGlvbigpIGN0eC5Nb3ZlbWVudC5Jbml0KGN0eCkgZW5kKQpzYWZlSW52b2tlKCJGbHkuSW5pdCIsIGZ1bmN0aW9uKCkgY3R4LkZseS5Jbml0KGN0eCkgZW5kKQpzYWZlSW52b2tlKCJBdXRvRmlzaC5Jbml0IiwgZnVuY3Rpb24oKSBjdHguQXV0b0Zpc2guSW5pdChjdHgpIGVuZCkKc2FmZUludm9rZSgiQXV0b0J1eS5Jbml0IiwgZnVuY3Rpb24oKSBjdHguQXV0b0J1eS5Jbml0KGN0eCkgZW5kKQpzYWZlSW52b2tlKCJCaWdQZXRGZWVkLkluaXQiLCBmdW5jdGlvbigpIGN0eC5CaWdQZXRGZWVkLkluaXQoY3R4KSBlbmQpCnNhZmVJbnZva2UoIlNlcnZlckhvcC5Jbml0IiwgZnVuY3Rpb24oKSBjdHguU2VydmVySG9wLkluaXQoY3R4KSBlbmQpCnNhZmVJbnZva2UoIlRlbGVwb3J0LkluaXQiLCBmdW5jdGlvbigpIGN0eC5UZWxlcG9ydC5Jbml0KGN0eCkgZW5kKQpzYWZlSW52b2tlKCJFbW90ZXMuSW5pdCIsICAgZnVuY3Rpb24oKSBjdHguRW1vdGVzLkluaXQoY3R4KSBlbmQpCgotLSDilIDilIAgQ29uc3RydcOnw6NvIGluaWNpYWwgZGEgR1VJIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgApzYWZlSW52b2tlKCJHVUkuQ29yZS5CdWlsZCIsIGZ1bmN0aW9uKCkgY3R4LkdVSS5Db3JlLkJ1aWxkKGN0eCkgZW5kKQoKLS0g4pSA4pSAIExvb3AgbW9uaXRvciDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKLS0gUmVjb25zdHLDs2kgYSBHVUkgY2FzbyBzZWphIHJlbW92aWRhIGV4dGVybmFtZW50ZSBlIGVudmlhIHBpbmdzIEFudGktQUZLCi0tIHBlcmnDs2RpY29zIGVucXVhbnRvIF9HX1J1bm5pbmcgZm9yIHRydWUuCnRhc2suc3Bhd24oZnVuY3Rpb24oKQogICAgd2hpbGUgX0dfUnVubmluZyBkbwogICAgICAgIGxvY2FsIHN0b3JlZCA9IGN0eC5TdGF0ZS5TdG9yZWQKICAgICAgICBpZiBub3QgKHN0b3JlZC5TY3JlZW5HdWkgYW5kIHN0b3JlZC5TY3JlZW5HdWkuUGFyZW50KSB0aGVuCiAgICAgICAgICAgIHNhZmVJbnZva2UoIkdVSS5Db3JlLkJ1aWxkIChtb25pdG9yKSIsIGZ1bmN0aW9uKCkgY3R4LkdVSS5Db3JlLkJ1aWxkKGN0eCkgZW5kKQogICAgICAgIGVuZAoKICAgICAgICBzYWZlSW52b2tlKCJBbnRpQUZLLlBpbmciLCBmdW5jdGlvbigpIGN0eC5BbnRpQUZLLlBpbmcoKSBlbmQpCgogICAgICAgIHRhc2sud2FpdChjdHguQ29uZmlnLkFOVElfQUZLX0lOVEVSVkFMKQogICAgZW5kCmVuZCkKCi0tIOKUgOKUgCBFdmVudG9zIGRlIHBlcnNvbmFnZW0g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACmxvY2FsIExvY2FsUGxheWVyID0gY3R4LlNlcnZpY2VzLkxvY2FsUGxheWVyCgpMb2NhbFBsYXllci5DaGFyYWN0ZXJBZGRlZDpDb25uZWN0KGZ1bmN0aW9uKGNoYXIpCiAgICBzYWZlSW52b2tlKCJNb3ZlbWVudC5BcHBseVRvQ2hhcmFjdGVyKENoYXJhY3RlckFkZGVkKSIsIGZ1bmN0aW9uKCkKICAgICAgICBjdHguTW92ZW1lbnQuQXBwbHlUb0NoYXJhY3RlcihjaGFyKQogICAgZW5kKQplbmQpCgotLSBBcGxpY2EgYW8gcGVyc29uYWdlbSBqw6EgZXhpc3RlbnRlIChjYXNvIG8gc2NyaXB0IHJvZGUgYXDDs3MgbyBzcGF3bikKaWYgTG9jYWxQbGF5ZXIuQ2hhcmFjdGVyIHRoZW4KICAgIHNhZmVJbnZva2UoIk1vdmVtZW50LkFwcGx5VG9DaGFyYWN0ZXIoQ3VycmVudCkiLCBmdW5jdGlvbigpCiAgICAgICAgY3R4Lk1vdmVtZW50LkFwcGx5VG9DaGFyYWN0ZXIoTG9jYWxQbGF5ZXIuQ2hhcmFjdGVyKQogICAgZW5kKQplbmQKCi0tIEZpbSBkZSBNYWluLmx1YQoKCnByaW50KCJbSE9DX05PQ10gU2NyaXB0IGNhcnJlZ2FkbyBjb20gc3VjZXNzbyEiKQo="))()
+-- HOC_NOC release (compat mode)
+-- Gerado por obfuscate.js sem wrapper base64 para evitar runtime nil em executores
+local __HOC_MODULES = {
+  ["Modules/Config.lua"] = [[local M = {}
+
+M.ANTI_AFK_INTERVAL = 30
+
+return M
+]],
+  ["Modules/State.lua"] = [[local M = {}
+
+M.Stored = {
+    ScreenGui = nil,
+}
+
+return M
+]],
+  ["Modules/Services.lua"] = [[local Players = game:GetService("Players")
+
+local M = {
+    Players = Players,
+    LocalPlayer = Players.LocalPlayer,
+}
+
+return M
+]],
+  ["Modules/AutoLike.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+    -- Placeholder module
+end
+
+return M
+]],
+  ["Modules/AntiAFK.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+function M.Ping()
+    -- Lightweight anti-idle pulse placeholder.
+end
+
+return M
+]],
+  ["Modules/ESP.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/Movement.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+function M.ApplyToCharacter(_char)
+end
+
+return M
+]],
+  ["Modules/Fly.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/AutoFish.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/AutoBuy.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/BigPetFeed.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/ServerHop.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/Teleport.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/Emotes.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/CollectCoin.lua"] = [[local M = {}
+
+function M.Init(_ctx)
+end
+
+return M
+]],
+  ["Modules/GUI/Toggles.lua"] = [[local M = {}
+
+function M.Bind(_ctx)
+end
+
+return M
+]],
+  ["Modules/GUI/Buttons.lua"] = [[local M = {}
+
+function M.Bind(_ctx)
+end
+
+return M
+]],
+  ["Modules/GUI/FruitMenu.lua"] = [[local M = {}
+
+function M.Bind(_ctx)
+end
+
+return M
+]],
+  ["Modules/GUI/Core.lua"] = [[local M = {}
+
+function M.Build(ctx)
+    local player = ctx.Services and ctx.Services.LocalPlayer
+    if not player then
+        return
+    end
+
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "HOC_NOC_GUI"
+    gui.ResetOnSpawn = false
+
+    local ok = pcall(function()
+        gui.Parent = game:GetService("CoreGui")
+    end)
+
+    if not ok then
+        local playerGui = player:FindFirstChildOfClass("PlayerGui") or player:WaitForChild("PlayerGui")
+        gui.Parent = playerGui
+    end
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 260, 0, 64)
+    frame.Position = UDim2.new(0, 20, 0, 80)
+    frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    frame.BorderSizePixel = 0
+    frame.Parent = gui
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, -12, 1, -12)
+    label.Position = UDim2.new(0, 6, 0, 6)
+    label.BackgroundTransparency = 1
+    label.Font = Enum.Font.GothamBold
+    label.TextSize = 14
+    label.TextColor3 = Color3.fromRGB(235, 235, 235)
+    label.Text = "HOC NOC BuildZoo Loaded"
+    label.Parent = frame
+
+    if ctx.State and ctx.State.Stored then
+        ctx.State.Stored.ScreenGui = gui
+    end
+end
+
+return M
+]],
+}
+--[[
+    HOC NOC Zoo — v1.0.3 | Modular Edition
+    Main.lua — Ponto de entrada. Carrega todos os módulos, inicializa as
+               features, constrói a GUI e mantém o loop monitor.
+
+    ─ Requisitos de executor ────────────────────────────────────────────────────
+    • Script distribuido como bundle standalone (modulos embutidos em memoria).
+    • Execucao recomendada via HttpGet + loadstring.
+
+    ─ Persistência após teleporte cross-place ───────────────────────────────────
+    Use queue_on_teleport do executor para recarregar apos teleportes:
+        queue_on_teleport([[loadstring(game:HttpGet("SUA_URL_RAW"))()]])
+]]
+
+-- ── Whitelist Security Check ──────────────────────────────────────────────────
+do
+    local ALLOWED_USERS = { ["kchaos97"] = true, ["ckhaos79"] = true }
+    -- UserIds oficiais autorizados (dupla validacao: nome + id)
+    local ALLOWED_USER_IDS = {
+        [2242060908] = true,
+        [5019856388] = true,
+    }
+    local Players = game:GetService("Players")
+    local player  = Players.LocalPlayer
+    local name    = player and player.Name or ""
+    local userId  = player and player.UserId or 0
+    local normalizedName = string.lower(tostring(name))
+
+    local function showAccessNotification(granted)
+        local sg = Instance.new("ScreenGui")
+        sg.Name = "HOC_NOC_Access"
+        sg.ResetOnSpawn = false
+        sg.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        pcall(function() sg.Parent = game:GetService("CoreGui") end)
+        if not sg.Parent then sg.Parent = player:WaitForChild("PlayerGui") end
+
+        local frame = Instance.new("Frame", sg)
+        frame.AnchorPoint = Vector2.new(0.5, 0)
+        frame.Position = UDim2.new(0.5, 0, 0.05, 0)
+        frame.Size = UDim2.new(0, 480, 0, 60)
+        frame.BackgroundColor3 = granted and Color3.fromRGB(30, 30, 30) or Color3.fromRGB(40, 10, 10)
+        frame.BackgroundTransparency = 0.15
+        frame.BorderSizePixel = 0
+        Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+        local stroke = Instance.new("UIStroke", frame)
+        stroke.Color = Color3.fromRGB(255, 0, 0)
+        stroke.Thickness = 2
+
+        -- RGB cycling border
+        local rgbRunning = true
+        task.spawn(function()
+            local t = 0
+            while rgbRunning do
+                t = t + task.wait()
+                local r = math.floor(math.sin(t * 2) * 127 + 128)
+                local g = math.floor(math.sin(t * 2 + 2.094) * 127 + 128)
+                local b = math.floor(math.sin(t * 2 + 4.189) * 127 + 128)
+                stroke.Color = Color3.fromRGB(r, g, b)
+            end
+        end)
+
+        local lbl = Instance.new("TextLabel", frame)
+        lbl.Size = UDim2.new(1, -40, 1, 0)
+        lbl.Position = UDim2.new(0, 20, 0, 0)
+        lbl.BackgroundTransparency = 1
+        lbl.Font = Enum.Font.GothamBold
+        lbl.TextSize = 18
+        lbl.TextColor3 = granted and Color3.fromRGB(0, 220, 90) or Color3.fromRGB(255, 60, 60)
+        lbl.Text = granted
+            and ("[HOC NOC] Access GRANTED — Welcome, " .. name)
+            or  ("[HOC NOC] Access DENIED — Unauthorized user: " .. name)
+        lbl.TextXAlignment = Enum.TextXAlignment.Center
+
+        task.delay(granted and 4 or 6, function()
+            rgbRunning = false
+            pcall(function()
+                local tw = game:GetService("TweenService")
+                local ti = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+                tw:Create(frame, ti, {BackgroundTransparency = 1}):Play()
+                tw:Create(lbl,   ti, {TextTransparency = 1}):Play()
+                tw:Create(stroke, ti, {Transparency = 1}):Play()
+                task.wait(1.1)
+                sg:Destroy()
+            end)
+        end)
+    end
+
+    local hasNameRules = next(ALLOWED_USERS) ~= nil
+    local hasIdRules = next(ALLOWED_USER_IDS) ~= nil
+    local nameAllowed = (not hasNameRules) or (ALLOWED_USERS[normalizedName] == true)
+    local idAllowed = (not hasIdRules) or (ALLOWED_USER_IDS[userId] == true)
+
+    if not (nameAllowed and idAllowed) then
+        showAccessNotification(false)
+        return
+    end
+
+    showAccessNotification(true)
+end
+
+-- ── Loader de módulos ─────────────────────────────────────────────────────────
+-- Loader de modulos embutidos em memoria (sem readfile)
+local function loadModule(relPath)
+    local source = __HOC_MODULES[relPath]
+    if type(source) ~= "string" then
+        warn("[HOC NOC] Modulo ausente no bundle: " .. tostring(relPath))
+        return {}
+    end
+
+    local _L = loadstring or load
+    if type(_L) ~= "function" then
+        warn("[HOC NOC] Executor sem loadstring/load para modulo: " .. tostring(relPath))
+        return {}
+    end
+
+    local chunk, compileErr = _L(source)
+    if type(chunk) ~= "function" then
+        warn("[HOC NOC] Erro de compilacao no modulo " .. tostring(relPath) .. ": " .. tostring(compileErr))
+        return {}
+    end
+
+    local ok, result = pcall(chunk)
+    if not ok then
+        warn("[HOC NOC] Erro ao executar modulo " .. tostring(relPath) .. ": " .. tostring(result))
+        return {}
+    end
+    return result
+end
+
+local function safeInvoke(label, fn)
+    if type(fn) ~= "function" then
+        warn("[HOC NOC] Etapa ausente: " .. tostring(label))
+        return false
+    end
+
+    local ok, err = pcall(fn)
+    if not ok then
+        warn("[HOC NOC] Falha em " .. tostring(label) .. ": " .. tostring(err))
+        return false
+    end
+
+    return true
+end
+
+-- ── Módulos base (ordem importa) ──────────────────────────────────────────────
+local ctx = {}
+ctx.Config   = loadModule("Modules/Config.lua")
+ctx.State    = loadModule("Modules/State.lua")
+ctx.Services = loadModule("Modules/Services.lua")
+
+-- ── Módulos de feature ────────────────────────────────────────────────────────
+ctx.AntiAFK   = loadModule("Modules/AntiAFK.lua")
+ctx.ESP       = loadModule("Modules/ESP.lua")
+ctx.Movement  = loadModule("Modules/Movement.lua")
+ctx.Fly       = loadModule("Modules/Fly.lua")
+ctx.AutoFish  = loadModule("Modules/AutoFish.lua")
+ctx.AutoBuy   = loadModule("Modules/AutoBuy.lua")
+ctx.BigPetFeed = loadModule("Modules/BigPetFeed.lua")
+ctx.ServerHop = loadModule("Modules/ServerHop.lua")
+ctx.Teleport  = loadModule("Modules/Teleport.lua")
+ctx.Emotes    = loadModule("Modules/Emotes.lua")
+
+-- ── Módulos de GUI ────────────────────────────────────────────────────────────
+ctx.GUI = {
+    Toggles  = loadModule("Modules/GUI/Toggles.lua"),
+    Buttons  = loadModule("Modules/GUI/Buttons.lua"),
+    FruitMenu = loadModule("Modules/GUI/FruitMenu.lua"),
+    Core     = loadModule("Modules/GUI/Core.lua"),
+}
+
+-- ── Inicialização das features (conecta eventos, inicia loops) ────────────────
+safeInvoke("AntiAFK.Init", function() ctx.AntiAFK.Init(ctx) end)
+safeInvoke("ESP.Init", function() ctx.ESP.Init(ctx) end)
+safeInvoke("Movement.Init", function() ctx.Movement.Init(ctx) end)
+safeInvoke("Fly.Init", function() ctx.Fly.Init(ctx) end)
+safeInvoke("AutoFish.Init", function() ctx.AutoFish.Init(ctx) end)
+safeInvoke("AutoBuy.Init", function() ctx.AutoBuy.Init(ctx) end)
+safeInvoke("BigPetFeed.Init", function() ctx.BigPetFeed.Init(ctx) end)
+safeInvoke("ServerHop.Init", function() ctx.ServerHop.Init(ctx) end)
+safeInvoke("Teleport.Init", function() ctx.Teleport.Init(ctx) end)
+safeInvoke("Emotes.Init",   function() ctx.Emotes.Init(ctx) end)
+
+-- ── Construção inicial da GUI ─────────────────────────────────────────────────
+safeInvoke("GUI.Core.Build", function() ctx.GUI.Core.Build(ctx) end)
+
+-- ── Loop monitor ──────────────────────────────────────────────────────────────
+-- Reconstrói a GUI caso seja removida externamente e envia pings Anti-AFK
+-- periódicos enquanto _G_Running for true.
+task.spawn(function()
+    while _G_Running do
+        local stored = ctx.State.Stored
+        if not (stored.ScreenGui and stored.ScreenGui.Parent) then
+            safeInvoke("GUI.Core.Build (monitor)", function() ctx.GUI.Core.Build(ctx) end)
+        end
+
+        safeInvoke("AntiAFK.Ping", function() ctx.AntiAFK.Ping() end)
+
+        task.wait(ctx.Config.ANTI_AFK_INTERVAL)
+    end
+end)
+
+-- ── Eventos de personagem ─────────────────────────────────────────────────────
+local LocalPlayer = ctx.Services.LocalPlayer
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    safeInvoke("Movement.ApplyToCharacter(CharacterAdded)", function()
+        ctx.Movement.ApplyToCharacter(char)
+    end)
+end)
+
+-- Aplica ao personagem já existente (caso o script rode após o spawn)
+if LocalPlayer.Character then
+    safeInvoke("Movement.ApplyToCharacter(Current)", function()
+        ctx.Movement.ApplyToCharacter(LocalPlayer.Character)
+    end)
+end
+
+-- Fim de Main.lua
+
+
+print("[HOC_NOC] Script carregado com sucesso!")
