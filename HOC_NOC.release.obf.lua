@@ -313,6 +313,12 @@ local function loadModule(relPath)
     return result
 end
 
+<<<<<<< HEAD
+=======
+    return result
+end
+
+>>>>>>> c61bc50 (fix: compat mode obfuscate sem wrapper base64)
 local function safeInvoke(label, fn)
     if type(fn) ~= "function" then
         warn("[HOC NOC] Etapa ausente: " .. tostring(label))
