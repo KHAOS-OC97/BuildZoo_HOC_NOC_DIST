@@ -26,13 +26,15 @@ const obfuscated =
   `if c=='='then return''end;` +
   `local r,f='',_B:find(c,1,true)-1;` +
   `for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and'1'or'0')end;` +
-  `return r` +
+  `return r;` +
   `end):gsub('%d%d%d%d%d%d%d%d',function(x)` +
   `local n=0;` +
   `for i=1,8 do n=n+(x:sub(i,i)=='1'and 2^(8-i)or 0)end;` +
   `return string.char(n)` +
   `end))end;` +
-  `load(_D("${encoded}"))()`;
+  `local __L=loadstring or load;` +
+  `if type(__L)~='function' then error('No Lua loader available') end;` +
+  `__L(_D("${encoded}"))()`;
 
 fs.writeFileSync(outputPath, obfuscated);
 console.log(`[Obfuscate] Saída: ${outputPath} (${obfuscated.length} bytes)`);
