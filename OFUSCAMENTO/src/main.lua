@@ -4,31 +4,11 @@
                features, constrói a GUI e mantém o loop monitor.
 
     ─ Requisitos de executor ────────────────────────────────────────────────────
-    • O executor deve suportar readfile() para carregar os arquivos locais.
-    • Estrutura de pastas esperada (relativa ao script loader do executor):
-
-        HOC_NOC_Zoo/
-        ├── Main.lua
-        └── Modules/
-            ├── Config.lua
-            ├── State.lua
-            ├── Services.lua
-            ├── AntiAFK.lua
-            ├── ESP.lua
-            ├── Movement.lua
-            ├── AutoBuy.lua
-            ├── ServerHop.lua
-            ├── Teleport.lua
-            └── GUI/
-                ├── Core.lua
-                ├── Toggles.lua
-                ├── Buttons.lua
-                └── FruitMenu.lua
+    • Script distribuido como bundle standalone (modulos embutidos em memoria).
+    • Execucao recomendada via HttpGet + loadstring.
 
     ─ Persistência após teleporte cross-place ───────────────────────────────────
-    Use queue_on_teleport do executor para recarregar após teleportes:
-        queue_on_teleport([[loadstring(readfile("HOC_NOC_Zoo/Main.lua"))()]])
-    ou, se o script estiver hospedado online:
+    Use queue_on_teleport do executor para recarregar apos teleportes:
         queue_on_teleport([[loadstring(game:HttpGet("SUA_URL_RAW"))()]])
 ]]
 
