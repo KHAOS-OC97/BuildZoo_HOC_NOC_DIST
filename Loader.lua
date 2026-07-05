@@ -51,6 +51,9 @@ local function fetch(path)
     if type(source) ~= "string" or source == "" then
         error("Conteúdo vazio para " .. path)
     end
+    if source:match("^404") or source:find("Not Found") or source:find("404: Not Found") then
+        error("Arquivo não encontrado no repositório remoto: " .. path .. ". Verifique o BASE_URL e o nome do arquivo.")
+    end
     return source
 end
 
