@@ -42,6 +42,21 @@ local function httpGet(url)
     return ok, result
 end
 
+local function isInvalidRemoteResponse(source)
+    if type(source) ~= "string" then
+        return true
+    end
+
+    local trimmed = source:match("^%s*(.-)%s*$") or source
+    local lower = trimmed:lower()
+
+    return trimmed:match("^404")
+        or lower:find("not found")
+        or lower:find("404:")
+        or lower:find("<html")
+        or lower:find("<!doctype html")
+end
+
 local function fetch(path)
     local url = BASE_URL .. path
     local ok, source = httpGet(url)
@@ -51,8 +66,8 @@ local function fetch(path)
     if type(source) ~= "string" or source == "" then
         error("Conteúdo vazio para " .. path)
     end
-    if source:match("^404") or source:find("Not Found") or source:find("404: Not Found") then
-        error("Arquivo não encontrado no repositório remoto: " .. path .. ". Verifique o BASE_URL e o nome do arquivo.")
+    if isInvalidRemoteResponse(source) then
+        error("Arquivo não encontrado ou resposta inválida do repositório remoto: " .. path .. ". Verifique o BASE_URL e o nome do arquivo.")
     end
     return source
 end
